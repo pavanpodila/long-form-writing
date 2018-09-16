@@ -112,6 +112,48 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-Notice the use of decorators such as `@observable`, `@action`, `@observer` that sets up the connections between the Store, React Components and the firing of actions. This is the minimal and essential boilerplate you have to write to create a React Component that automatically re-renders itself anytime the `done` or `title` properties change.
+Notice the use of decorators such as `@observable`, `@action`, `@observer` and `@inject` that sets up the connections between the Store, React Components and the firing of actions. This is the minimal and essential boilerplate you have to write to create a React Component that automatically re-renders itself anytime the `done` or `title` properties change.
 
 You can also see the use of `@computed`, a special decorator that automatically tracks its dependent observables and produces up-to-date values. Such properties are called _computed-properties_ or _derivations_ in MobX. Derivations are just _Reactions in disguise_.
+
+In the _constructor_ of the `TodoStore`, we have setup a simple reaction that monitors the computed `json` property. When it changes, it fires a network call to persist the todo on the server. The `json` property internally tracks the `done` and `title` properties and changes whenever any of them change.
+
+The `reaction()` in this case runs a _"persist to server"_ _side-effect_ whenever the `json` property changes. It can also track if the call completely successfully or failed due to various reasons. To do that we can simply keep an _observable_ property called `status`, which can take one of three values: `'pending' | 'completed' | 'failed'`.
+
+The code could look something like below:
+
+```jsx
+class TodoStore {
+    /* ... */
+
+    @observable
+    status = '';
+
+    constructor() {
+        reaction(
+            () => this.json,
+            async json => {
+                this.status = 'pending';
+                try {
+                    await persistTodo(json);
+                    this.status = 'completed';
+                } catch (e) {
+                    this.status = 'failed';
+                }
+            },
+        );
+    }
+
+    /* ... */
+}
+```
+
+The `TodoComponent` can track this in its `render()` and show the `status` as it changes.
+
+## Scaling the app
+
+The example above was fairly simple and was meant to introduce the concepts behind MobX. A real-world application would be much more complex with multiple stores and interconnected relationships between stores. There will be several reactions (aka side-effects) firing as the state changes in the app. Managing all these is definitely not easy but certainly made simpler with MobX.
+
+What is interesting is the mental model you need to develop to handle the growing complextity is exactly the same for the simple `TodoStore` we saw above. So the learning curve stays relatively flat and it becomes a pleasure to scale the app and add more features.
+
+To get you up to speed with MobX and also learn all the practices for developing large scale app, take a look at [MobX Quick Start Guide](https://www.packtpub.com/web-development/mobx-quick-start-guide). Although the title suggests a "quick start", it goes quite deep and even touches on the inner workings of the MobX system.
