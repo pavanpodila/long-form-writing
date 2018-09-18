@@ -158,6 +158,6 @@ The example above was fairly simple and was meant to introduce the concepts behi
 
 What is interesting is the mental model you need to develop to handle the growing complextity is exactly the same for the simple `TodoStore` we saw above. So the learning curve stays relatively flat and it becomes a pleasure to scale the app and add more features.
 
-![MobX Quick Start Guide](book.png)
+<img src="book.png" alt="MobX Quick Start Guide" height="256">
 
 To get you up to speed with MobX and also learn all the practices for developing large scale app, take a look at [MobX Quick Start Guide](https://www.packtpub.com/web-development/mobx-quick-start-guide). Although the title suggests a "quick start", it goes quite deep and even touches on the inner workings of the MobX system.
