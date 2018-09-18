@@ -2,7 +2,7 @@
 
 **State Management** is an aspect of your application that controls what is ultimately rendered. It's the pumping heart that spreads data across your app and brings various components to life. The _state_ of a Web Application, like the ones built with `React.js`, rely on the central _Store_ as the _single source of truth_. _Actions_ originating in the _UI_ are fired on this store to modify the state. This results in a new version of the state, which is notified back to the UI by the Store. This cycle of _Actions --> Store --> UI_ is always uni-directional and makes it easy to understand the data-flow in the application.
 
-![Action => State =>  UI](action-state-ui¸.png)
+![Action => State =>  UI](action-state-ui.png)
 
 ## Jumping into MobX
 
