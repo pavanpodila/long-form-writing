@@ -20,6 +20,10 @@ With `observables` carrying the reactive, mutable state of your application and 
 
 As your application scales in size, it becomes necessary to pay close attention to how state is being changed from different parts of your application. It is quite common to have several async operations going on in your app, such as network calls, timers or promise-based operations. Managing the success, failure states of these operations and ensuring that the UI is not going out of sync, can become challenging. With MobX, you can map these to a set of observables, actions and reactions and wire them together without much boilerplate.
 
+This is one of the reasons why MobX has stormed into popularity. There has been huge adoption in lots of companies, from the startups to the Fortune 500s.
+
+## A Taste of MobX
+
 Consider this snippet of MobX that wires a `TodoComponent` (the UI, aka reaction) to a `TodoStore` (the observable). By firing _actions_ from the UI, we mutate the state of the Todo, which gets observed by `TodoComponent` to re-render the state.
 
 > See the example live on [CodeSandbox](https://codesandbox.io/s/m4my65o63p)
@@ -95,7 +99,7 @@ class TodoComponent extends React.Component {
                 </div>
 
                 <pre>{JSON.stringify(json)}</pre>
-            </Fragment>
+            </Fragment>   l
         );
     }
 }
@@ -116,7 +120,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 Notice the use of decorators such as `@observable`, `@action`, `@observer` and `@inject` that sets up the connections between the Store, React Components and the firing of actions. This is the minimal and essential boilerplate you have to write to create a React Component that automatically re-renders itself anytime the `done` or `title` properties change.
 
-You can also see the use of `@computed`, a special decorator that automatically tracks its dependent observables and produces up-to-date values. Such properties are called _computed-properties_ or _derivations_ in MobX. Derivations are just _Reactions in disguise_.
+You can also see the use of `@computed`, a special decorator that automatically tracks its dependent observables and produces up-to-date values. Such properties are called _computed-properties_ or _derivations_ in MobX.
 
 In the _constructor_ of the `TodoStore`, we have setup a simple reaction that monitors the computed `json` property. When it changes, it fires a network call to persist the todo on the server. The `json` property internally tracks the `done` and `title` properties and changes whenever any of them change.
 
