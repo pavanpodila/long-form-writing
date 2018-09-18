@@ -2,11 +2,13 @@
 
 **State Management** is an aspect of your application that controls what is ultimately rendered. It's the pumping heart that spreads data across your app and brings various components to life. The _state_ of a Web Application, like the ones built with `React.js`, rely on the central _Store_ as the _single source of truth_. _Actions_ originating in the _UI_ are fired on this store to modify the state. This results in a new version of the state, which is notified back to the UI by the Store. This cycle of _Actions --> Store --> UI_ is always uni-directional and makes it easy to understand the data-flow in the application.
 
+![Action => State =>  UI](action-state-ui¸.png)
+
 ## Jumping into MobX
 
 MobX embraces this idea and provides a model of Transparent Functional Reactive Programming (TFRP) that eliminates much of the boilerplate in setting up this data-flow. MobX is a state-management framework that comes with a simple, yet powerful set of building blocks, such as _Observables_, _Actions_ and _Reactions_. These three concepts form the junctions of the data-flow triad.
 
-![Observables-Actions-Reactions triad](mobx-triad.png)
+![Observables-Actions-Reactions triad](mobx-core.png)
 
 **Observables** carry the central mutable-state of your application. As this state changes, it fires notifications that can be observed by other participants (aka observers) of the data-flow triad. **Reactions** are the primary observers in MobX. The UI (React Components) is modeled as a _reaction_ and happens to be the most glorious observer in the system. These components observe the _observable-state_ and render the visual representations of data.
 
